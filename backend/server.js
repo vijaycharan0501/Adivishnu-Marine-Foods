@@ -19,7 +19,7 @@ const server = http.createServer(app);
 // Socket.io initialization
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
   }
@@ -33,7 +33,7 @@ app.use(express.json());
 
 // Enable CORS
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: true,
   credentials: true
 }));
 
@@ -52,9 +52,12 @@ app.get('/api/health', (req, res) => {
 
 // Route files will be mounted here...
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/negotiations', require('./routes/negotiationRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
+app.use('/api/procurements', require('./routes/procurementRoutes'));
+app.use('/api/inquiries', require('./routes/inquiryRoutes'));
 
 // Socket.io connections
 io.on('connection', (socket) => {

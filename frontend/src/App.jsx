@@ -11,6 +11,10 @@ import Negotiation from './pages/Negotiation';
 import Invoice from './pages/Invoice';
 import { Toaster } from 'react-hot-toast';
 
+import ContractorProfile from './pages/admin/ContractorProfile';
+import ContractorsList from './pages/admin/ContractorsList';
+import ProcurementDetails from './pages/admin/ProcurementDetails';
+
 function App() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -24,10 +28,14 @@ function App() {
           <Route path="/farmer/dashboard" element={<FarmerDashboard />} />
           <Route path="/farmer/add-product" element={<AddProduct />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/contractors" element={<ContractorsList />} />
+          <Route path="/admin/contractor/:id" element={<ContractorProfile />} />
+          <Route path="/admin/procurement/:id" element={<ProcurementDetails />} />
           <Route path="/buyer/dashboard" element={<BuyerDashboard />} />
           <Route path="/negotiation/:productId" element={<Negotiation />} />
           <Route path="/invoice/order/:orderId" element={<Invoice />} />
           <Route path="/invoice/product/:productId" element={<Invoice />} />
+          <Route path="/invoice/procurement/:procurementId" element={<Invoice />} />
         </Routes>
       </main>
     </div>

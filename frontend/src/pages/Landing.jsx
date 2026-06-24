@@ -25,93 +25,113 @@ const Landing = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-ocean-50 via-white to-ocean-100 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+    <div className="min-h-[calc(100vh-4rem)] relative bg-[#f4f7fb] overflow-hidden">
+      {/* Hero Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none h-[120vh]">
+        <img src="/images/landing_hero_bg.png" alt="Hero Background" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-slate-900/60 to-[#f4f7fb]"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-32 relative z-10 min-h-[90vh] flex flex-col justify-center">
         <motion.div 
-          className="text-center max-w-3xl mx-auto"
+          className="text-center max-w-4xl mx-auto"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
         >
-          <motion.h1 variants={itemVariants} className="text-5xl md:text-6xl font-bold text-slate-900 tracking-tight mb-6">
-            Bringing Farmers, Buyers & <span className="text-transparent bg-clip-text bg-gradient-to-r from-ocean-500 to-blue-600">Opportunities Together</span>
+          <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 drop-shadow-lg leading-tight">
+            Bringing Farmers, Buyers & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-ocean-200">Opportunities Together</span>
           </motion.h1>
-          <motion.p variants={itemVariants} className="text-xl text-slate-600 mb-10 leading-relaxed">
+          <motion.p variants={itemVariants} className="text-xl md:text-2xl text-blue-50 mb-12 leading-relaxed font-medium drop-shadow-md max-w-3xl mx-auto">
             A trusted premium marketplace for seafood trade. Farmers list their catch, admins manage deals, and buyers place bulk orders seamlessly.
           </motion.p>
-          <motion.div variants={itemVariants} className="flex justify-center gap-4">
-            <Link to="/register" className="btn-primary text-lg px-8 py-3 flex items-center gap-2 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl">
+          <motion.div variants={itemVariants} className="flex justify-center gap-6">
+            <Link to="/register" className="bg-white text-ocean-700 font-bold text-lg px-8 py-4 rounded-full flex items-center gap-2 transform hover:scale-105 transition-all shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:shadow-[0_0_40px_rgba(255,255,255,0.5)]">
               Get Started <ArrowRight className="h-5 w-5" />
             </Link>
-            <a href="#about" onClick={scrollToAbout} className="btn-secondary text-lg px-8 py-3 transform hover:scale-105 transition-all cursor-pointer">
+            <a href="#about" onClick={scrollToAbout} className="bg-transparent border-2 border-white/80 text-white font-bold text-lg px-8 py-4 rounded-full transform hover:scale-105 hover:bg-white/10 transition-all cursor-pointer backdrop-blur-sm shadow-lg">
               More Info
             </a>
           </motion.div>
         </motion.div>
 
         <motion.div 
-          className="mt-24 grid md:grid-cols-3 gap-8 relative z-10"
+          className="mt-32 grid md:grid-cols-3 gap-8 relative z-10"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
         >
-          <motion.div variants={itemVariants} className="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-sm border border-white/50 text-center hover:shadow-lg transition-all hover:-translate-y-1">
-            <div className="mx-auto bg-gradient-to-br from-ocean-100 to-ocean-200 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-inner transform -rotate-3">
-              <Users className="h-8 w-8 text-ocean-700" />
+          <motion.div variants={itemVariants} className="bg-white/10 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/20 text-center hover:bg-white/20 transition-all hover:-translate-y-2">
+            <div className="mx-auto bg-gradient-to-br from-white to-blue-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg transform -rotate-3">
+              <Users className="h-8 w-8 text-ocean-600" />
             </div>
-            <h3 className="text-xl font-bold text-slate-800 mb-3">Direct Trade</h3>
-            <p className="text-slate-600">Connect directly with verified buyers and farmers in the marine food industry.</p>
+            <h3 className="text-2xl font-bold text-white mb-3 drop-shadow-sm">Direct Trade</h3>
+            <p className="text-blue-50 font-medium">Connect directly with verified buyers and farmers in the marine food industry.</p>
           </motion.div>
           
-          <motion.div variants={itemVariants} className="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-sm border border-white/50 text-center hover:shadow-lg transition-all hover:-translate-y-1">
-            <div className="mx-auto bg-gradient-to-br from-green-100 to-green-200 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-inner transform rotate-3">
-              <ShieldCheck className="h-8 w-8 text-green-700" />
+          <motion.div variants={itemVariants} className="bg-white/10 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/20 text-center hover:bg-white/20 transition-all hover:-translate-y-2">
+            <div className="mx-auto bg-gradient-to-br from-white to-blue-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg transform rotate-3">
+              <ShieldCheck className="h-8 w-8 text-green-600" />
             </div>
-            <h3 className="text-xl font-bold text-slate-800 mb-3">Secure Contracts</h3>
-            <p className="text-slate-600">Automated deal confirmations, secure payments, and invoice generation.</p>
+            <h3 className="text-2xl font-bold text-white mb-3 drop-shadow-sm">Secure Contracts</h3>
+            <p className="text-blue-50 font-medium">Automated deal confirmations, secure payments, and invoice generation.</p>
           </motion.div>
           
-          <motion.div variants={itemVariants} className="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-sm border border-white/50 text-center hover:shadow-lg transition-all hover:-translate-y-1">
-            <div className="mx-auto bg-gradient-to-br from-purple-100 to-purple-200 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-inner transform -rotate-3">
-              <TrendingUp className="h-8 w-8 text-purple-700" />
+          <motion.div variants={itemVariants} className="bg-white/10 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/20 text-center hover:bg-white/20 transition-all hover:-translate-y-2">
+            <div className="mx-auto bg-gradient-to-br from-white to-blue-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg transform -rotate-3">
+              <TrendingUp className="h-8 w-8 text-purple-600" />
             </div>
-            <h3 className="text-xl font-bold text-slate-800 mb-3">Real-time Negotiation</h3>
-            <p className="text-slate-600">Negotiate prices in real-time with admins to get the best value for your catch.</p>
+            <h3 className="text-2xl font-bold text-white mb-3 drop-shadow-sm">Real-time Negotiation</h3>
+            <p className="text-blue-50 font-medium">Negotiate prices in real-time with admins to get the best value for your catch.</p>
           </motion.div>
         </motion.div>
       </div>
 
       {/* About Section */}
-      <div ref={aboutRef} id="about" className="bg-white py-20 relative z-10 border-t border-gray-100 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.05)]">
+      <div ref={aboutRef} id="about" className="bg-[#f4f7fb] py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold text-slate-800 mb-6">About Adivishnu Marine Foods Pvt. Ltd.</h2>
-            <p className="text-lg text-slate-600 leading-relaxed">
-              Adivishnu Marine Foods Pvt. Ltd. is a seafood sourcing, processing, and export company dedicated to delivering high-quality marine products to customers across India and international markets. We focus on quality, food safety, sustainability, and customer satisfaction while maintaining global export standards.
-            </p>
+          
+          <div className="bg-white rounded-[40px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] overflow-hidden border border-gray-100 mb-20">
+            <div className="grid lg:grid-cols-2">
+              <div className="p-12 md:p-16 flex flex-col justify-center">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">About Adivishnu Marine Foods Pvt. Ltd.</h2>
+                <p className="text-lg md:text-xl text-slate-600 leading-relaxed font-medium">
+                  Adivishnu Marine Foods Pvt. Ltd. is a seafood sourcing, processing, and export company dedicated to delivering high-quality marine products to customers across India and international markets. We focus on quality, food safety, sustainability, and customer satisfaction while maintaining global export standards.
+                </p>
+              </div>
+              <div className="relative h-64 lg:h-auto hidden lg:block">
+                <img src="/images/landing_about_bg.png" alt="Premium Seafood" className="absolute inset-0 w-full h-full object-cover" />
+              </div>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 mb-20">
-            <div className="bg-ocean-50 p-8 rounded-2xl border border-ocean-100 shadow-sm">
-              <h3 className="text-2xl font-bold text-ocean-800 mb-4 flex items-center gap-2"><ShieldCheck className="h-6 w-6" /> Government Licenses</h3>
-              <p className="text-slate-700 mb-4">We operate with all required government approvals and licenses, including:</p>
-              <ul className="space-y-2 text-slate-600 font-medium ml-2">
-                <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-ocean-500"></span> Import Export Code (IEC)</li>
-                <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-ocean-500"></span> FSSAI License</li>
-                <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-ocean-500"></span> GST Registration</li>
-                <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-ocean-500"></span> MPEDA Registration</li>
-                <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-ocean-500"></span> Company Registration Certificate</li>
+          <div className="grid md:grid-cols-2 gap-10 mb-24">
+            <div className="bg-white p-10 rounded-[32px] border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgb(0,0,0,0.08)] transition-shadow">
+              <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6">
+                <ShieldCheck className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-800 mb-4">Government Licenses</h3>
+              <p className="text-slate-600 mb-6 font-medium">We operate with all required government approvals and licenses, including:</p>
+              <ul className="space-y-3 text-slate-700 font-medium">
+                <li className="flex items-center gap-3"><span className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-sm"></span> Import Export Code (IEC)</li>
+                <li className="flex items-center gap-3"><span className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-sm"></span> FSSAI License</li>
+                <li className="flex items-center gap-3"><span className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-sm"></span> GST Registration</li>
+                <li className="flex items-center gap-3"><span className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-sm"></span> MPEDA Registration</li>
+                <li className="flex items-center gap-3"><span className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-sm"></span> Company Registration Certificate</li>
               </ul>
             </div>
 
-            <div className="bg-green-50 p-8 rounded-2xl border border-green-100 shadow-sm">
-              <h3 className="text-2xl font-bold text-green-800 mb-4 flex items-center gap-2"><TrendingUp className="h-6 w-6" /> Quality Certifications</h3>
-              <p className="text-slate-700 mb-4">To ensure food safety and product quality, we follow international standards and certifications such as:</p>
-              <ul className="space-y-2 text-slate-600 font-medium ml-2">
-                <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500"></span> HACCP</li>
-                <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500"></span> ISO Standards</li>
-                <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500"></span> Food Safety Compliance</li>
-                <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500"></span> Quality Assurance Procedures</li>
+            <div className="bg-white p-10 rounded-[32px] border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgb(0,0,0,0.08)] transition-shadow">
+              <div className="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center mb-6">
+                <TrendingUp className="h-8 w-8 text-green-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-800 mb-4">Quality Certifications</h3>
+              <p className="text-slate-600 mb-6 font-medium">To ensure food safety and product quality, we follow international standards and certifications such as:</p>
+              <ul className="space-y-3 text-slate-700 font-medium">
+                <li className="flex items-center gap-3"><span className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-sm"></span> HACCP</li>
+                <li className="flex items-center gap-3"><span className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-sm"></span> ISO Standards</li>
+                <li className="flex items-center gap-3"><span className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-sm"></span> Food Safety Compliance</li>
+                <li className="flex items-center gap-3"><span className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-sm"></span> Quality Assurance Procedures</li>
               </ul>
             </div>
           </div>

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+
 require('dotenv').config();
 
 const User = require('./models/User');
@@ -82,7 +82,7 @@ const seedDatabase = async () => {
     });
 
     // --- CREATE PRODUCTS ---
-    const p1 = await Product.create({
+    await Product.create({
       farmer: farmer1._id,
       name: 'Vannamei Shrimp',
       quantity: 500,
@@ -92,7 +92,7 @@ const seedDatabase = async () => {
       status: 'pending'
     });
 
-    const p2 = await Product.create({
+    await Product.create({
       farmer: farmer2._id,
       name: 'Tiger Prawns',
       quantity: 200,
@@ -124,7 +124,7 @@ const seedDatabase = async () => {
       status: 'approved'
     });
 
-    const p5 = await Product.create({
+    await Product.create({
       farmer: farmer3._id,
       name: 'Indian White Prawn',
       quantity: 800,
@@ -145,7 +145,7 @@ const seedDatabase = async () => {
       status: 'approved'
     });
 
-    const p7 = await Product.create({
+    await Product.create({
       farmer: farmer4._id,
       name: 'Blue Crab',
       quantity: 100,
@@ -154,7 +154,7 @@ const seedDatabase = async () => {
       status: 'pending'
     });
 
-    const p8 = await Product.create({
+    await Product.create({
       farmer: farmer4._id,
       name: 'Mud Crab',
       quantity: 50,

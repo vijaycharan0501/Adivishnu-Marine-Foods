@@ -83,6 +83,13 @@ const updateOrderStatus = async (req, res) => {
       if (advanceAmountPaid !== undefined) order.advanceAmountPaid = advanceAmountPaid;
 
       const updatedOrder = await order.save();
+
+      // Emit socket event for real-time buyer dashboard update
+      const io = req.app.get('io');
+      if (io) {
+        io.emit('order_status_updated', updatedOrder);
+      }
+
       res.json(updatedOrder);
     } else {
       res.status(404).json({ message: 'Order not found' });

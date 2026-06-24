@@ -8,14 +8,20 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ['farmer', 'buyer', 'admin'], required: true },
   phone: { type: String },
   companyName: { type: String }, // Specific for buyers
+  address: { type: String },
 }, { timestamps: true });
 
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) {
-    return next();
+    return;
   }
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 userSchema.methods.matchPassword = async function(enteredPassword) {

@@ -4,10 +4,11 @@ import { useSelector } from 'react-redux';
 import { Printer, ArrowLeft } from 'lucide-react';
 
 const Invoice = () => {
-  const { orderId, productId } = useParams();
+  const { orderId, productId, procurementId } = useParams();
   const navigate = useNavigate();
   const { orders } = useSelector((state) => state.orders);
   const { products } = useSelector((state) => state.products);
+  const { procurements } = useSelector((state) => state.procurement);
   
   let data = null;
 
@@ -50,9 +51,30 @@ const Invoice = () => {
         title: 'PROCUREMENT CONTRACT'
       };
     }
+  } else if (procurementId && procurements) {
+    const procurement = procurements.find(p => p._id === procurementId);
+    if (procurement) {
+      const totalAmount = procurement.targetQuantity * (procurement.expectedPricePerKg || 0);
+      data = {
+        id: procurement._id,
+        date: procurement.updatedAt || procurement.createdAt,
+        billedToName: 'Adivishnu Platform (Admin)',
+        billedToEmail: 'admin@adivishnu.com',
+        supplierName: procurement.fulfilledBy?.companyName || procurement.fulfilledBy?.name || 'Contractor',
+        supplierEmail: procurement.fulfilledBy?.email || 'contractor@example.com',
+        productName: procurement.title || 'Procurement Item',
+        grade: procurement.category || 'Standard',
+        quantity: procurement.targetQuantity,
+        pricePerKg: procurement.expectedPricePerKg || 0,
+        totalAmount: totalAmount,
+        paymentStatus: 'pending',
+        title: 'PAYMENT RECEIPT'
+      };
+    }
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (!data) {
       // Navigate back if data isn't loaded (in a real app, we'd fetch it here)
       navigate(-1);

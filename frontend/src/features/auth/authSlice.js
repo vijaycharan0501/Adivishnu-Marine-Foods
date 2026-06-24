@@ -12,6 +12,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: '',
+  contractors: [],
 };
 
 // Register user
@@ -44,6 +45,19 @@ export const login = createAsyncThunk('auth/login', async (userData, thunkAPI) =
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   localStorage.removeItem('user');
+});
+
+// Get contractors
+export const getContractors = createAsyncThunk('auth/getContractors', async (_, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth.user.token;
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+    const response = await axios.get('http://localhost:5000/api/users/contractors', config);
+    return response.data;
+  } catch (error) {
+    const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
 });
 
 export const authSlice = createSlice({
@@ -89,6 +103,9 @@ export const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
+      })
+      .addCase(getContractors.fulfilled, (state, action) => {
+        state.contractors = action.payload;
       });
   },
 });

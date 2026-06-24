@@ -23,10 +23,10 @@ const Login = () => {
       alert(message);
     }
     if (isSuccess || user) {
-      if (user.role === 'farmer') navigate('/farmer/dashboard');
-      else if (user.role === 'admin') navigate('/admin/dashboard');
-      else if (user.role === 'buyer') navigate('/buyer/dashboard');
-      else navigate('/');
+      if (user.role === 'farmer') navigate('/farmer/dashboard', { replace: true });
+      else if (user.role === 'admin') navigate('/admin/dashboard', { replace: true });
+      else if (user.role === 'buyer') navigate('/buyer/dashboard', { replace: true });
+      else navigate('/', { replace: true });
     }
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);

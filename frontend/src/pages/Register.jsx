@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { register, reset } from '../features/auth/authSlice';
-import { Ship, Store } from 'lucide-react';
+import { Store } from 'lucide-react';
 import clsx from 'clsx';
 
 const Register = () => {
-  const [role, setRole] = useState(''); // 'farmer' or 'buyer'
+  const [role, setRole] = useState('buyer'); // default to buyer to skip role selection
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,10 +30,10 @@ const Register = () => {
       alert(message);
     }
     if (isSuccess || user) {
-      if (user.role === 'farmer') navigate('/farmer/dashboard');
-      else if (user.role === 'admin') navigate('/admin/dashboard');
-      else if (user.role === 'buyer') navigate('/buyer/dashboard');
-      else navigate('/');
+      if (user.role === 'farmer') navigate('/farmer/dashboard', { replace: true });
+      else if (user.role === 'admin') navigate('/admin/dashboard', { replace: true });
+      else if (user.role === 'buyer') navigate('/buyer/dashboard', { replace: true });
+      else navigate('/', { replace: true });
     }
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
@@ -70,21 +70,10 @@ const Register = () => {
             <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Create an Account</h2>
             <p className="mt-2 text-sm text-gray-600">Choose how you want to join SeaTrade</p>
           </div>
-          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div 
-              onClick={() => setRole('farmer')}
-              className="card cursor-pointer hover:border-ocean-500 hover:shadow-lg transition-all text-center group"
-            >
-              <div className="mx-auto bg-ocean-50 w-20 h-20 rounded-full flex items-center justify-center mb-4 group-hover:bg-ocean-100 transition-colors">
-                <Ship className="h-10 w-10 text-ocean-600" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">I am a Farmer</h3>
-              <p className="text-gray-500 text-sm mb-6">List your seafood products and sell to trusted buyers.</p>
-              <button className="btn-primary w-full">Sign Up as Farmer</button>
-            </div>
+          <div className="mt-8 flex justify-center">
             <div 
               onClick={() => setRole('buyer')}
-              className="card cursor-pointer hover:border-ocean-500 hover:shadow-lg transition-all text-center group"
+              className="card cursor-pointer hover:border-ocean-500 hover:shadow-lg transition-all text-center group max-w-sm w-full"
             >
               <div className="mx-auto bg-ocean-50 w-20 h-20 rounded-full flex items-center justify-center mb-4 group-hover:bg-ocean-100 transition-colors">
                 <Store className="h-10 w-10 text-ocean-600" />
@@ -94,7 +83,10 @@ const Register = () => {
               <button className="btn-primary w-full">Sign Up as Buyer</button>
             </div>
           </div>
-          <p className="text-center text-sm text-gray-600 mt-8">
+          <p className="text-center text-sm text-gray-500 mt-4">
+            *Farmer registration is restricted to authorized company contractors only.
+          </p>
+          <p className="text-center text-sm text-gray-600 mt-4">
             Already have an account? <Link to="/login" className="font-medium text-ocean-600 hover:text-ocean-500">Login</Link>
           </p>
         </div>
@@ -180,11 +172,6 @@ const Register = () => {
           <p className="text-center text-sm text-gray-600 mt-6">
             Already have an account? <Link to="/login" className="font-medium text-ocean-600 hover:text-ocean-500">Login</Link>
           </p>
-          <div className="text-center mt-4">
-            <button onClick={() => setRole('')} className="text-sm text-gray-500 hover:underline">
-              &larr; Back to Role Selection
-            </button>
-          </div>
         </div>
       </div>
     </div>

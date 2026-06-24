@@ -28,7 +28,7 @@ const Negotiation = () => {
   }, [user, productId, dispatch, navigate]);
 
   useEffect(() => {
-    if (negotiation) {
+    if (negotiation?._id) {
       socket = io('http://localhost:5000');
       socket.emit('join_room', negotiation._id);
 
@@ -42,9 +42,12 @@ const Negotiation = () => {
     }
 
     return () => {
-      if (socket) socket.disconnect();
+      if (socket) {
+        socket.disconnect();
+        socket = null;
+      }
     };
-  }, [negotiation, dispatch]);
+  }, [negotiation?._id, dispatch]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -159,6 +162,16 @@ const Negotiation = () => {
                   <p><strong>Phone:</strong> {negotiation.contactDetails.phone}</p>
                   <p><strong>Location:</strong> {negotiation.contactDetails.location}</p>
                 </div>
+              </div>
+            )}
+
+            {isAdmin && negotiation.status === 'accepted' && (
+              <div className="card mt-6 border border-red-200 bg-red-50">
+                <h3 className="font-bold text-red-800 mb-2">Physical Inspection</h3>
+                <p className="text-sm text-red-700 mb-4">If the physical quality check fails, you can revoke and reject this deal.</p>
+                <button onClick={() => handleStatusUpdate('rejected')} className="w-full bg-red-600 text-white hover:bg-red-700 py-2 rounded-lg font-medium transition-colors shadow-sm">
+                  Reject Deal (Post-Inspection)
+                </button>
               </div>
             )}
           </div>

@@ -55,6 +55,13 @@ const addOffer = async (req, res) => {
 
     await negotiation.save();
     
+    // Update product status to negotiating if it was pending
+    const product = await Product.findById(negotiation.product);
+    if (product && product.status === 'pending') {
+      product.status = 'negotiating';
+      await product.save();
+    }
+
     // Emit socket event to the room
     const io = req.app.get('io');
     io.to(negotiationId).emit('new_offer', negotiation);
