@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/auth/';
+const API_URL = "https://adivishnu-marine-foods.onrender.com/api/auth/";
 
 // Get user from localStorage
 const user = JSON.parse(localStorage.getItem('user'));
@@ -52,7 +52,7 @@ export const getContractors = createAsyncThunk('auth/getContractors', async (_, 
   try {
     const token = thunkAPI.getState().auth.user.token;
     const config = { headers: { Authorization: `Bearer ${token}` } };
-    const response = await axios.get('http://localhost:5000/api/users/contractors', config);
+    const response = await axios.get("https://adivishnu-marine-foods.onrender.com/api/users/contractors", config);
     return response.data;
   } catch (error) {
     const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
