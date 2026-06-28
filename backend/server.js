@@ -42,7 +42,7 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-app.options("*", cors());
+app.options(/.*/, cors());
 
 // Set security headers
 app.use(helmet());
