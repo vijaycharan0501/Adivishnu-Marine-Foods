@@ -14,11 +14,14 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
+    const isSuperAdmin = email === 'admin@adivishnu.com';
+    const finalRole = isSuperAdmin ? 'admin' : role;
+
     const user = await User.create({
       name,
       email,
       password,
-      role,
+      role: finalRole,
       phone,
       companyName,
     });

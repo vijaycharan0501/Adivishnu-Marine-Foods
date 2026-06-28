@@ -19,8 +19,8 @@ const server = http.createServer(app);
 // Socket.io initialization
 const io = new Server(server, {
   cors: {
-    origin: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: "https://adivishnu-marine-foods.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   }
 });
@@ -33,9 +33,16 @@ app.use(express.json());
 
 // Enable CORS
 app.use(cors({
-  origin: true,
-  credentials: true
+  origin: [
+    "https://adivishnu-marine-foods.vercel.app",
+    "http://localhost:3000"
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+app.options("*", cors());
 
 // Set security headers
 app.use(helmet());
@@ -62,7 +69,7 @@ app.use('/api/inquiries', require('./routes/inquiryRoutes'));
 // Socket.io connections
 io.on('connection', (socket) => {
   console.log(`Socket connected: ${socket.id}`);
-  
+
   socket.on('join_room', (room) => {
     socket.join(room);
     console.log(`User ${socket.id} joined room ${room}`);
