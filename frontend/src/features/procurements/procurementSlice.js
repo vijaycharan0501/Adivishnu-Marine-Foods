@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/procurements/';
+const API_URL = 'https://adivishnu-marine-foods.onrender.com/api/procurements/';
 
 const initialState = {
   procurements: [],
