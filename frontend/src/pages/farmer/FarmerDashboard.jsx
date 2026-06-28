@@ -52,10 +52,10 @@ const FarmerDashboard = () => {
       
       const newSocket = io('http://localhost:5000');
 
-      
       newSocket.on('receive_offer', (data) => {
         if (data.senderRole !== 'farmer') {
           toast.success(`New counter-offer received for your product!`);
+          dispatch(getProducts()); // Automatically refresh the data
         }
       });
       

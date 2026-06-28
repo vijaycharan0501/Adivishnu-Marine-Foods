@@ -26,7 +26,7 @@ const ContractorsList = () => {
   const hasRecentActivity = (contractorId) => {
     return safeProcurements.some(p => {
       const fulfilledByThis = p.fulfilledBy && (p.fulfilledBy._id === contractorId || p.fulfilledBy === contractorId);
-      const rejectedByThis = p.rejections && p.rejections.some(r => r.contractor === contractorId || r.contractor._id === contractorId);
+      const rejectedByThis = p.rejections && p.rejections.some(r => r.contractor === contractorId || r.contractor?._id === contractorId);
       return fulfilledByThis || rejectedByThis;
     });
   };

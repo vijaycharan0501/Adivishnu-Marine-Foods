@@ -32,7 +32,7 @@ const getProducts = async (req, res) => {
     if (req.user.role === 'admin') {
       products = await Product.find({}).populate('farmer', 'name email phone companyName');
     } else if (req.user.role === 'buyer') {
-      products = await Product.find({ status: 'approved' }).populate('farmer', 'name companyName email phone');
+      products = await Product.find({ ecommerceStatus: { $in: ['published', 'out_of_stock'] } }).populate('farmer', 'name companyName email phone');
     } else if (req.user.role === 'farmer') {
       products = await Product.find({ farmer: req.user._id });
     }

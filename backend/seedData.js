@@ -16,42 +16,36 @@ const seedDatabase = async () => {
     await Order.deleteMany({});
     await User.deleteMany({ email: { $ne: 'admin@adivishnu.com' } });
 
-    // --- CREATE FARMERS ---
-    const farmer1 = await User.create({
-      name: 'Ramesh Reddy',
-      email: 'ramesh@farm.com',
-      password: 'password123',
-      role: 'farmer',
-      companyName: 'Reddy Aqua Farms',
-      phone: '9876543210'
-    });
+    // --- CREATE 10 CONTRACTORS (FARMERS) ---
+    const contractorNames = [
+      "Ramesh Reddy",
+      "Suresh Kumar",
+      "Venkatesh Rao",
+      "Anjali Desai",
+      "Karthik Sharma",
+      "Meena Iyer",
+      "Prakash Verma",
+      "Lakshmi Narayan",
+      "Rajesh Khanna",
+      "Vikram Singh"
+    ];
 
-    const farmer2 = await User.create({
-      name: 'Suresh Kumar',
-      email: 'suresh@farm.com',
-      password: 'password123',
-      role: 'farmer',
-      companyName: 'Kumar Seafoods',
-      phone: '9876543211'
-    });
+    const contractors = [];
+    for (let i = 1; i <= 10; i++) {
+      const contractor = await User.create({
+        name: contractorNames[i - 1],
+        email: `contractor${i}@adivishnu.com`,
+        password: 'contractor123',
+        phone: `987654321${i-1}`,
+        role: 'farmer'
+      });
+      contractors.push(contractor);
+    }
 
-    const farmer3 = await User.create({
-      name: 'Venkatesh Rao',
-      email: 'venkatesh@farm.com',
-      password: 'password123',
-      role: 'farmer',
-      companyName: 'Rao Coastal Farms',
-      phone: '9876543222'
-    });
-
-    const farmer4 = await User.create({
-      name: 'Anjali Desai',
-      email: 'anjali@farm.com',
-      password: 'password123',
-      role: 'farmer',
-      companyName: 'Desai Aquatics',
-      phone: '9876543233'
-    });
+    const farmer1 = contractors[0];
+    const farmer2 = contractors[1];
+    const farmer3 = contractors[2];
+    const farmer4 = contractors[3];
 
     // --- CREATE BUYERS ---
     const buyer1 = await User.create({

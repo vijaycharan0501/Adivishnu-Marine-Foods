@@ -32,7 +32,7 @@ const ContractorProfile = () => {
   const contractorProducts = safeProducts.filter(p => p && p.farmer && p.farmer._id === id);
   const contractorDecisions = safeProcurements.filter(p => {
     const fulfilledByThis = p.fulfilledBy && (p.fulfilledBy._id === id || p.fulfilledBy === id);
-    const rejectedByThis = p.rejections && p.rejections.some(r => r.contractor === id || r.contractor._id === id);
+    const rejectedByThis = p.rejections && p.rejections.some(r => r.contractor === id || r.contractor?._id === id);
     return fulfilledByThis || rejectedByThis;
   });
 

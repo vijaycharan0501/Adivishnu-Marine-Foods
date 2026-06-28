@@ -55,6 +55,7 @@ const AdminDashboard = () => {
       newSocket.on('receive_offer', (data) => {
         if (data.senderRole !== 'admin') {
           toast.success(`New bid received from a Contractor!`);
+          dispatch(getProducts()); // Automatically refresh the data
         }
       });
       return () => newSocket.close();
@@ -110,7 +111,7 @@ const AdminDashboard = () => {
     if (product) {
       setFormData({ id: product._id, name: product.name, category: product.category || 'General Seafood', expectedPrice: product.expectedPrice, stock: product.stock || 0, image: product.image || '', ecommerceStatus: product.ecommerceStatus || 'draft' });
     } else {
-      setFormData({ id: null, name: '', category: 'General Seafood', expectedPrice: '', stock: '', image: '', ecommerceStatus: 'draft' });
+      setFormData({ id: null, name: '', category: 'General Seafood', expectedPrice: '', stock: '', image: '', ecommerceStatus: 'published' });
     }
     setIsModalOpen(true);
   };
@@ -126,9 +127,15 @@ const AdminDashboard = () => {
       ecommerceStatus: formData.ecommerceStatus
     };
     if (formData.id) {
-      dispatch(updateAdminProduct({ id: formData.id, productData: payload }));
+      dispatch(updateAdminProduct({ id: formData.id, productData: payload }))
+        .unwrap()
+        .then(() => toast.success('Product updated successfully!'))
+        .catch((err) => toast.error(err || 'Failed to update product'));
     } else {
-      dispatch(createAdminProduct(payload));
+      dispatch(createAdminProduct(payload))
+        .unwrap()
+        .then(() => toast.success('Product added successfully!'))
+        .catch((err) => toast.error(err || 'Failed to add product'));
     }
     setIsModalOpen(false);
   };
@@ -273,8 +280,8 @@ const AdminDashboard = () => {
         <nav className="flex-1 flex flex-col gap-1.5 mt-2">
           <SidebarItem icon={Home} label="Dashboard" isDashboard={true} activeTab={activeTab} setActiveTab={setActiveTab} />
           <SidebarItem icon={ShoppingBag} label="Contractors" tabValue="farmer_conversations" activeTab={activeTab} setActiveTab={setActiveTab} />
-          <SidebarItem icon={Users} label="Buyers" tabValue="buyer_conversations" activeTab={activeTab} setActiveTab={setActiveTab} />
-          <SidebarItem icon={ShoppingBag} label="E-Commerce" tabValue="manage_orders" activeTab={activeTab} setActiveTab={setActiveTab} />
+          <SidebarItem icon={Users} label="Buyer Orders" tabValue="buyer_conversations" activeTab={activeTab} setActiveTab={setActiveTab} />
+          <SidebarItem icon={ShoppingBag} label="Store Products" tabValue="manage_orders" activeTab={activeTab} setActiveTab={setActiveTab} />
           <SidebarItem icon={ClipboardList} label="Requests" tabValue="company_requests" activeTab={activeTab} setActiveTab={setActiveTab} />
           <SidebarItem icon={FileText} label="Inquiries" tabValue="buyer_inquiries" activeTab={activeTab} setActiveTab={setActiveTab} />
         </nav>
