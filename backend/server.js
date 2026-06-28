@@ -31,8 +31,7 @@ app.set('io', io);
 // Body parser
 app.use(express.json());
 
-// Enable CORS
-app.use(cors({
+const corsOptions = {
   origin: [
     "https://adivishnu-marine-foods.vercel.app",
     "http://localhost:3000"
@@ -40,9 +39,11 @@ app.use(cors({
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
-}));
+};
 
-app.options(/.*/, cors());
+// Enable CORS
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
 
 // Set security headers
 app.use(helmet());
